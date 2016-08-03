@@ -1,0 +1,188 @@
+<% include ../upload/uploads-layouts/head %>
+        <section id="main-content">
+            <section class="wrapper">
+
+                <div class="row">
+                    <div class="col-lg-9 main-chart">
+
+                        <!--<div class="row mtbox">-->
+                        <!--    <div class="col-md-2 col-sm-2 col-md-offset-1 box0">-->
+                        <!--        <div class="box1">-->
+                        <!--            <span class="li_heart"></span>-->
+                        <!--            <h3>933</h3>-->
+                        <!--        </div>-->
+                        <!--        <p>933 People liked your page the last 24hs. Whoohoo!</p>-->
+                        <!--    </div>-->
+                        <!--    <div class="col-md-2 col-sm-2 box0">-->
+                        <!--        <div class="box1">-->
+                        <!--            <span class="li_cloud"></span>-->
+                        <!--            <h3>+48</h3>-->
+                        <!--        </div>-->
+                        <!--        <p>48 New files were added in your cloud storage.</p>-->
+                        <!--    </div>-->
+                        <!--    <div class="col-md-2 col-sm-2 box0">-->
+                        <!--        <div class="box1">-->
+                        <!--            <span class="li_stack"></span>-->
+                        <!--            <h3>23</h3>-->
+                        <!--        </div>-->
+                        <!--        <p>You have 23 unread messages in your inbox.</p>-->
+                        <!--    </div>-->
+                        <!--    <div class="col-md-2 col-sm-2 box0">-->
+                        <!--        <div class="box1">-->
+                        <!--            <span class="li_news"></span>-->
+                        <!--            <h3>+10</h3>-->
+                        <!--        </div>-->
+                        <!--        <p>More than 10 news were added in your reader.</p>-->
+                        <!--    </div>-->
+                        <!--    <div class="col-md-2 col-sm-2 box0">-->
+                        <!--        <div class="box1">-->
+                        <!--            <span class="li_data"></span>-->
+                        <!--            <h3>OK!</h3>-->
+                        <!--        </div>-->
+                        <!--        <p>Your server is working perfectly. Relax & enjoy.</p>-->
+                        <!--    </div>-->
+
+                        <!--</div>-->
+
+
+                        <div class="row mt">
+
+                            <div class="col-md-6 mb">
+                                <div class="white-panel pn">
+                                    <div class="white-header">
+                                        <h5>USUARIO</h5>
+                                    </div>
+                                    <p><img src="../imagens/icon.png" class="img-circle" width="80"></p>
+                                    <p><b><%=user.local.nome %></b></p>
+                                    <div class="row">
+                                        <div class="col-md-6"> 
+                                            <p class="small mt">EMAIL</p>
+                                            <p><%=user.local.email%></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                           <p class="small mt">REGISTADO DESDE</p>
+                                            <p>2016</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 mb">
+                                <div class="white-panel pn">
+                                    <div class="white-header">
+                                        <h5>Utilização do espaço</h5>
+                                    </div>
+                                    <canvas id="serverstatus02" height="120" width="120"></canvas>
+                                    <script>
+                                        var doughnutData = [
+                                            {
+                                                value: <%=perc%>,
+                                                color: "#FFD777"
+           },
+                                            {
+                                                value: 100-<%=perc%>,
+                                                color: "#444c57"
+           }
+          ];
+                                        var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
+                                    </script>
+                                    <p><%=data%></p>
+                                    <footer>
+                                        <div class="pull-left">
+                                            <h5>&nbsp&nbsp<i class="fa fa-hdd-o"></i> <%=user.local.size%> Mb</h5>
+                                        </div>
+                                        <div class="pull-right">
+                                            <h5><%=perc%> % (<%= espaço %>) Used &nbsp</h5>
+                                        </div>
+                                    </footer>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-3 ds">
+                        <!--<h3>Notificações</h3>-->
+
+                        <!--<div class="desc">-->
+                        <!--    <div class="thumb">-->
+                        <!--        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>-->
+                        <!--    </div>-->
+                        <!--    <div class="details">-->
+                        <!--        <p>-->
+                        <!--            <muted>2 Minutes Ago</muted>-->
+                        <!--            <br/>-->
+                        <!--            <a href="#">James Brown</a> subscribed to your newsletter.-->
+                        <!--            <br/>-->
+                        <!--        </p>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+
+                        <!--<div class="desc">-->
+                        <!--    <div class="thumb">-->
+                        <!--        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>-->
+                        <!--    </div>-->
+                        <!--    <div class="details">-->
+                        <!--        <p>-->
+                        <!--            <muted>7 Hours Ago</muted>-->
+                        <!--            <br/>-->
+                        <!--            <a href="#">Brandon Page</a> purchased a year subscription.-->
+                        <!--            <br/>-->
+                        <!--        </p>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="desc">-->
+                        <!--    <div class="thumb">-->
+                        <!--        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>-->
+                        <!--    </div>-->
+                        <!--    <div class="details">-->
+                        <!--        <p>-->
+                        <!--            <muted>11 Hours Ago</muted>-->
+                        <!--            <br/>-->
+                        <!--            <a href="#">Mark Twain</a> commented your post.-->
+                        <!--            <br/>-->
+                        <!--        </p>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--  -->
+                        <!--<div class="desc">-->
+                        <!--    <div class="thumb">-->
+                        <!--        <span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>-->
+                        <!--    </div>-->
+                        <!--    <div class="details">-->
+                        <!--        <p>-->
+                        <!--            <muted>18 Hours Ago</muted>-->
+                        <!--            <br/>-->
+                        <!--            <a href="#">Daniel Pratt</a> purchased a wallet in your store.-->
+                        <!--            <br/>-->
+                        <!--        </p>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+
+                        <!---->
+                        <h3>Adminitradores</h3>
+                        <!-- First Member -->
+                        <div class="desc">
+                            <div class="thumb">
+                                <img class="img-circle" src="../imagens/icon.png" width="35px" height="35px" align="">
+                            </div>
+                            <div class="details">
+                                <p><a href="#">Teste</a></a>
+                                    <br/>
+                                    <muted>Disponivel</muted>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </section>
+
+    </div>
+
+    <% include ../upload/uploads-layouts/footer %>
+        <% include ../upload/uploads-layouts/javascript %>
+            </body>
+
+            </html>

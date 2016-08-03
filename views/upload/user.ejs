@@ -1,0 +1,185 @@
+<% include ../upload/uploads-layouts/head %>
+  
+    <section id="main-content">
+        <section class="wrapper">
+            <h3><i class="fa fa-angle-right"></i> Usuario</h3>
+            
+
+            <!-- BASIC FORM ELELEMNTS -->
+            <div class="col-md-6 mb">
+                <div class="white-panel pn">
+                    <div class="white-header">
+                        <h5>USUARIO</h5>
+                          <%=user.local.su%>
+                    </div>
+                    <p><img src="../imagens/icon.png" class="img-circle" width="80"></p>
+                    <p><b><%=user.local.nome %></b></p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="small mt">EMAIL</p>
+                            <p>
+                                <%=user.local.email%>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="small mt">REGISTADO DESDE</p>
+                            <p>2016</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+           <div class="col-md-6 mb">
+                                <div class="white-panel pn">
+                                    <div class="white-header">
+                                        <h5>Utilização do espaço</h5>
+                                    </div>
+                                    <canvas id="serverstatus02" height="120" width="120"></canvas>
+                                    <script>
+                                        var doughnutData = [
+                                            {
+                                                value: <%=perc%>,
+                                                color: "#FFD777"
+           },
+                                            {
+                                                value: 100-<%=perc%>,
+                                                color: "#444c57"
+           }
+          ];
+                                        var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
+                                    </script>
+                                    <p><%=data%></p>
+                                    <footer>
+                                        <div class="pull-left">
+                                            <h5>&nbsp&nbsp<i class="fa fa-hdd-o"></i> <%=user.local.size%> Mb</h5>
+                                        </div>
+                                        <div class="pull-right">
+                                            <h5><%=perc%> % (<%= espaço %>) Used &nbsp</h5>
+                                        </div>
+                                    </footer>
+                                </div>
+                            </div>
+            </div>
+
+
+            <div class="row mt">
+                <div class="col-md-12 mb">
+                    <div class="form-panel">
+                    <div class="col-md-12 mb" style="background: #3D3D3D;color:white;">
+                            <center><h4>Alterar os dados ..</h4></center>
+                        </div>
+                        <span id="erro2"></span>
+                        <% if (message.length> 0) { %>
+                            <div class="alert alert-dismissible alert-danger">
+                                <%=message %>
+                            </div>
+                            <% } %>
+
+                                <form class="form-horizontal style-form" action="../user" method="post">
+
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-2 control-label">Usuario :</label>
+                                        <div class="col-lg-10">
+                                            <p class="form-control-static">
+                                                <span id="usuario">  <%=user.local.usuario %></p></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-2 control-label">Nome :</label>
+                                        <div class="col-lg-10">
+                                            <p class="form-control-static">
+                                                <span id="nome">  <%=user.local.nome %> </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-2 control-label">Email :</label>
+                                        <div class="col-lg-10">
+                                            <p class="form-control-static">
+                                                <span id="email"> <%=user.local.email %>  </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 col-sm-2 control-label">Password :</label>
+                                        <div class="col-lg-10">
+                                            <p class="form-control-static">
+                                                <span id="password_addd"><code> Por motivos de segurança n sera mostrada a password !!</code> </p> </span>
+                                        </div>
+                                    </div>
+
+                                    <span id="alterar"> <button type="button" class="btn btn-warning" onclick="user()">Alterar</button> </span>
+                                    <span id="alterar_passwor"> <button type="button" class="btn btn-warning" onclick="vizualizar_pass()">Alterar Password</button> </span>
+                                    <span id="salvar"></span>
+                                    <span id="cancelar"></span>
+                                </form>
+                    </div>
+                </div>
+            </div>
+     
+        </section>
+    </section>
+
+    <% include ../upload/uploads-layouts/footer %>
+        <% include ../upload/uploads-layouts/javascript %>>
+
+            <script>
+                function user() {
+                    //   document.getElementById("form").innerHTML = ' <form action="demo_form.asp">';
+                    document.getElementById("alterar").innerHTML = '';
+                    document.getElementById("usuario").innerHTML = '<input type="text" name="usuario" class="form-control" value="<%=user.local.usuario %>">';
+                    document.getElementById("nome").innerHTML = '<input type="text" name="nome" class="form-control" value="<%=user.local.nome %>">';
+                    document.getElementById("email").innerHTML = '<input type="email" class="form-control" name="email" value="<%=user.local.email %>">';
+                    //    document.getElementById("password").innerHTML = '<input type="password" class="form-control" name="firstname" value="<%=user.local.password %>">';
+                    document.getElementById("salvar").innerHTML = '<button type="submit" class="btn btn-success">Salvar</button>';
+                    document.getElementById("cancelar").innerHTML = '<button type="button" class="btn btn-danger" onclick="cancelar()">cancelar</button>';
+                    //   document.getElementById("/form").innerHTML = ' </form>';
+                };
+
+                function cancelar() {
+                    document.getElementById("usuario").innerHTML = '<%=user.local.usuario %>';
+                    document.getElementById("nome").innerHTML = '<%=user.local.nome %>';
+                    document.getElementById("email").innerHTML = '<%=user.local.email %>';
+                    document.getElementById("password_addd").innerHTML = '<code> Por motivos de segurança n sera mostrada a password desencriptada !!</code> </p>';
+                    document.getElementById("salvar").innerHTML = '';
+                    document.getElementById("cancelar").innerHTML = '';
+                    document.getElementById("alterar").innerHTML = '<button type="button" class="btn btn-warning" onclick="user()">Alterar</button>';
+                    document.getElementById("alterar_passwor").innerHTML = '<button type="button" class="btn btn-warning" onclick="vizualizar_pass()">Alterar Password</button'; 
+                };
+                
+                 function vizualizar_pass() {
+                    
+                document.getElementById("alterar_passwor").innerHTML = '<button type="button" class="btn btn-success" onclick="password_ad()">Salvar Password </button>'; 
+                document.getElementById("password_addd").innerHTML = '<input type="password" class="form-control" name="password_alt">';
+                document.getElementById("cancelar").innerHTML = '<button type="button" class="btn btn-danger" onclick="cancelar()">cancelar</button>';
+                    
+                }
+                
+                function password_ad() {
+                             
+                    $.post("../user/pass/alt", {
+                            id: window.idss,
+                            password: $("input[name$='password_alt']").val(),
+                        },
+                        function (data, status) {
+                            cancelar();
+                            var papersObject = JSON.stringify(data.result);
+
+                            if (papersObject == undefined) {
+                                document.getElementById("erro2").innerHTML = ''
+
+                            }
+                            else {
+                                if (papersObject.length > 0) {
+                                    document.getElementById("erro2").innerHTML = '<div class="alert alert-dismissible alert-danger"> ' + papersObject.split('"').join('') + ' </div>'
+                                }
+                            }
+
+                        });
+                }
+            </script>
+
+            </body>
+
+            </html>

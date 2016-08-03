@@ -1,0 +1,95 @@
+  <% include ../upload/uploads-layouts/head %>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Eliminar</h4>
+                </div>
+                <div class="modal-body">
+                    Tem a certeza que pretende eliminar tudo permanentemente ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                    <a href="../del/perm" class="btn btn-success">Sim</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+      <section id="main-content">
+          <section class="wrapper">
+          	<h3><i class="fa fa-angle-right"></i> Lixeira </h3>                          	                  	  	     
+          	<button type="button" class="btn btn-danger pull-right btn-sm" data-toggle="modal" data-target="#myModal"> Apagar tudo !!</button>
+
+			
+
+              <div class="row mt">
+                  
+                  <div class="col-md-12">
+                      
+                      <div class="content-panel">
+                          <table class="table table-striped table-advance table-hover">
+	                  	  	  <hr>
+	                  	  	  
+                              <thead>
+                              <tr>
+                                  <th><i class="fa fa-bullhorn"></i> Nome</th>
+                                  <th class="hidden-phone"><i class="fa fa-question-circle"></i> Pre-vizualizar</th>
+                                  <th><i class="fa fa-bookmark"></i> Acção</th>
+                              </tr>
+                              </thead>
+                              <tbody id="lixo">
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+
+		</section>
+      </section>
+
+     <% include ../upload/uploads-layouts/footer %>
+     <% include ../upload/uploads-layouts/javascript %>
+     <script>
+     
+                $(document).ready(function () {
+                        lixo();
+                    }
+
+                );
+
+                function lixo(tableContent) {
+                    $.getJSON('/trash', function (data) {
+                        for (var item in data) {
+                            var encodedUrl = escape(encodeURI(item));
+                            var decoded = decodeURIComponent(escape(encodedUrl));
+                            var str = data[decoded];
+                            var res = (str.substring(str.lastIndexOf("."))).toLowerCase();
+                            tableContent += '<tr>';
+                            tableContent += '<td>' + data[item] + '</td>';
+                            if (res == '.mp3') {
+                                tableContent += '<td>  <audio controls> <source src="/uploads/' + data[decoded] + '"> </audio> </td>';
+                            }
+                            else if (res == '.png') {
+                                tableContent += '<td><img src="/elim/' + data[decoded] + '" alt="HTML tutorial" style="width:42px;height:42px;"><br></td>';
+                            }
+                            else if (res == '.jpg') {
+                                tableContent += '<td><img src="/elim/' + data[decoded] + '" alt="HTML tutorial" style="width:42px;height:42px;"></td>';
+                            }
+                            else if (res == '.gif') {
+                                tableContent += '<td><img src="/elim/' + data[decoded] + '" alt="HTML tutorial" style="width:42px;height:42px;"></td>';
+                            }
+                            else if (res == '.mp4') {
+                                tableContent += '<td><video width="320" height="240" controls> <source src="/uploads/' + data[decoded] + '" type="video/mp4"> Your browser does not support the video tag.</video></td>';
+                            }
+                            else {
+                                tableContent += '<td><img src="http://www.mydaymyplan.com/images/no-image-large.png" alt="HTML tutorial" style="width:42px;height:42px;"></td>';
+                            }
+                            tableContent += '<td> <a href="/restaurar/' + data[decoded] + '" class="btn btn-success">Restaurar</a> <a href="/elimperm/' + data[decoded] + '" class="btn btn-danger">Apagar</a> </td>';
+                            tableContent += '</tr>';
+                        }
+                        $('#lixo').html(tableContent);
+                    });
+                }
+            </script>
